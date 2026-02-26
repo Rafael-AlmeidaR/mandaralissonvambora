@@ -1,0 +1,170 @@
+<html>
+<body>
+</body>
+<script>
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// ORIENTAÇÃO A OBJETOS
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Classe1
+{	constructor(x, y)
+	{	this.x = x;
+		this.y = y;
+	}
+
+	m1()
+	{	alert("Classe1.m1 " + this.x + " " + this.y);
+	}
+
+	toString()
+	{	return("Classe1 " + this.x + " " + this.y);
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Classe2 extends Classe1
+{	constructor(x, y, z)
+	{	super(x, y);
+		this.z = z;
+	}
+
+	toString()
+	{	return("Classe2 " + this.x + " " + this.y + " " + this.z);
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Classe3 extends Classe2
+{	constructor(x, y, z, t)
+	{	super(x, y, z);
+		this.t = t;
+	}
+
+	m1(a)
+	{	super.m1();
+		alert("Classe3.m1 " + a);
+	}
+
+	toString()
+	{	return("Classe3 " + this.x + " " + this.y + " " + this.z + " " + this.t);
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var o1 = new Classe1(1, 2);
+var o2 = new Classe2(3, 4, 5);
+var o3 = new Classe3(6, 7, 8, 9);
+
+alert(o1);
+alert(o2);
+alert(o3);
+
+o1.m1();
+o2.m1();
+o3.m1("abc");
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// TAG AUDIO
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var audio = document.createElement("audio");
+audio.src = "desktop-login.ogg"; //apenas WAV, MP3 e OGG
+audio.play();
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// TAG CANVAS
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var canvas = document.createElement("canvas");
+var context = canvas.getContext("2d");
+var container = document.createElement("div");
+document.body.appendChild(container);
+container.appendChild(canvas);
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+context.strokeStyle = "rgb(255, 0, 0)";
+context.beginPath();
+context.moveTo(10, 10);
+context.lineTo(100, 100);
+context.stroke();
+
+context.fillStyle = "rgb(0, 255, 0)";
+context.fillRect(0, 0, 20, 20);
+
+context.fillStyle = "rgb(0, 0, 255)";
+context.beginPath();
+context.arc(100, 100, 10, 0, Math.PI*2, true);
+context.closePath();
+context.fill();
+
+context.font = "20px Arial";
+context.fillStyle = "rgb(128, 128, 128)";
+context.textBaseline = "top";
+context.fillText("texto", 50, 50);
+
+var img = new Image();
+img.src = "the_scream.jpg";
+context.drawImage(img, 300, 10);
+context.drawImage(img, 550, 10, 150, 180);
+context.drawImage(img, 90, 130, 50, 60, 750, 10, 50, 60);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// TECLADO
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+document.addEventListener("keypress", onKeyPress);
+
+function onKeyPress(event)
+{	var key = String.fromCharCode(event.which);
+	alert(event.which+" = "+key);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// MOUSE
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var mouseX = 0;
+var mouseY = 0;
+var mouseDown = false;
+
+document.addEventListener("mousemove", onMouseMove);
+document.addEventListener("mousedown", onMouseDown);
+document.addEventListener("mouseup", onMouseUp);
+
+function onMouseMove(event)
+{	event.preventDefault();
+	mouseX = event.clientX;
+	mouseY = event.clientY;
+}
+
+function onMouseDown(event)
+{	mouseDown = true;
+}
+
+function onMouseUp(event)
+{	mouseDown = false;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// TEMPORIZAÇÃO
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var FPS = 20; //1;
+var timer = setInterval(loop, 1000/FPS);
+
+function loop()
+{	context.fillStyle = "rgb(0, 0, 0)";
+	context.fillRect(10, 200, 150, 20);
+
+	context.font = "12px Arial";
+	context.fillStyle = "rgb(255, 255, 255)";
+	context.textBaseline = "top";
+	context.fillText("Mouse: (" + mouseX + "," + mouseY + ")", 10, 200);
+}
+</script>
+</html>
+

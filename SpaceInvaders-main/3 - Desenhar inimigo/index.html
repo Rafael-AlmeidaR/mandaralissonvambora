@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenhar inimigo</title>
+</head>
+<body>
+    <canvas id="canvas1"></canvas>
+    <script src="Nave.js"></script>
+    <script>
+        var canvas = document.getElementById("canvas1");
+        var context = canvas.getContext("2d");
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+
+        var enemyimg = new Image;
+        enemyimg.src = "enemy.png";
+
+        var nave = new Nave(100, 500, "nave.png");
+
+        window.onload = function()
+        {   nave.draw();
+            context.drawImage(enemyimg,100,100,100,100);   
+        }
+
+        document.addEventListener("keypress", movimento);
+        function movimento(event)
+        {   
+            context.fillStyle = "white";
+            context.fillRect(0,0,canvas.width, canvas.height);
+            context.drawImage(enemyimg,100,100,100,100);
+            
+            if(event.key == "a")
+            {   nave.x-=10;
+            }
+            if(event.key == "d")
+            {   nave.x+=10;
+            }
+            nave.draw();
+        }
+    </script>
+</body>
+</html>

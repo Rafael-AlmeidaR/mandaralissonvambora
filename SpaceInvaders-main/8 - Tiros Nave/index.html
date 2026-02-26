@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiros Nave</title>
+</head>
+<body>
+    <canvas id="canvas1"></canvas>
+    <script src="Entity.js"></script>
+    <script src="Projectile.js"></script>
+    <script src="Enemies.js"></script>
+    <script src="Enemy.js"></script>
+    <script src="Nave.js"></script>
+    <script>
+        var canvas = document.getElementById("canvas1");
+        var context = canvas.getContext("2d");
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+
+        var nave = new Nave(100, 500, 100, 100, "nave.png");
+        var enemies = new Enemies(100, 100, 100, 100, "enemy.png");
+
+        var FPS = 30;
+        var timer = setInterval(loop,1000/FPS);
+        function loop()
+        {   context.fillStyle = "white";
+            context.fillRect(0,0,canvas.width, canvas.height);
+
+            enemies.update();
+            nave.update()
+            
+            enemies.draw();
+            nave.draw();
+        }
+
+        document.addEventListener("keypress",movimento)
+        function movimento(event)
+        {   if(event.key == "a")
+            {   nave.x-=10;
+            }
+            if(event.key == "d")
+            {   nave.x+=10;
+            }
+            if(event.key == "e" && !nave.bullet)
+            {   nave.fire();
+            }
+        }
+    </script>
+</body>
+</html>

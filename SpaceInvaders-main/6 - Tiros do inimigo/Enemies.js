@@ -1,0 +1,68 @@
+class Enemies
+{   constructor()
+    {   this.list = 
+            [   
+                new Enemy(100, 100, 100, 100, "enemy.png"),
+                new Enemy(200, 100, 100, 100, "enemy.png"),
+                new Enemy(300, 100, 100, 100, "enemy.png"),
+                new Enemy(100, 200, 100, 100, "enemy.png"),
+                new Enemy(200, 200, 100, 100, "enemy.png"),
+                new Enemy(300, 200, 100, 100, "enemy.png"),
+                new Enemy(100, 300, 100, 100, "enemy.png"),
+                new Enemy(200, 300, 100, 100, "enemy.png"),
+                new Enemy(300, 300, 100, 100, "enemy.png"),
+                // new Enemy(400, 300, 100, 100, "enemy.png"),
+                // new Enemy(500, 300, 100, 100, "enemy.png"),
+                // new Enemy(600, 300, 100, 100, "enemy.png"),
+            ];
+        
+        this.bullet;
+        this.bullet2;
+        this.fire();
+        this.fire2();
+    }
+    fire()
+    {   let enemy = this.list[Math.trunc(Math.random()*(this.list.length))];
+        this.bullet = new Projectile(enemy.x+enemy.width/2, enemy.y+enemy.height/2, 10, 20);
+    }
+    fire2()
+    {   let enemy2 = this.list[Math.trunc(Math.random()*(this.list.length))];
+        this.bullet2 = new Projectile(enemy2.x+enemy2.width/2, enemy2.y+enemy2.height/2, 10, 20);
+    }
+
+    draw()
+    {   for(var i=0; i<this.list.length; i++)
+        {   this.list[i].draw();
+        }
+    }
+
+    update()
+    {   for(var i=0; i<this.list.length; i++)
+        {   this.list[i].update();            
+        }
+       
+        var found = false;
+
+        for(var i=0;(i < this.list.length && found == false); i++)
+        {   if(this.list[i].x<0 || this.list[i].x+this.list[i].width>canvas.width)
+            {   found = true;
+            }           
+        }
+        if(found == true)
+        {   for(var i=0; i<this.list.length; i++)
+            {   this.list[i].reverse();
+            }
+        }
+        
+        this.bullet.draw();
+        this.bullet.update();
+        this.bullet2.draw();
+        this.bullet2.update();
+        if(this.bullet.y > canvas.height)
+        {   this.fire();   
+        }
+        if(this.bullet2.y > canvas.height)
+        {   this.fire2();   
+        }
+    }
+}
